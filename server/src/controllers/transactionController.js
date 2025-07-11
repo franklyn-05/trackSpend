@@ -5,7 +5,7 @@ const createTransaction = async (req, res) => {
         const transaction = await Transaction.create(req.body);
         res.status(201).json(transaction);
     } catch (e){
-        res.status(500).json({ error: 'Failed to create transaction'})
+        res.status(500).json({ error: 'Failed to create transaction'});
     }
 
 };
@@ -20,10 +20,9 @@ const getTransaction = async (req, res) => {
         }
         res.json(transaction);
     } catch (e){
-        res.status(500).json({ error: 'Error occured'})
+        res.status(500).json({ error: 'Error occured'});
     }
-
-}
+};
 
 const getTransactions = async (req, res) => {
     const transactions = await Transaction.find();
@@ -38,4 +37,4 @@ module.exports = {
     createTransaction,
     getTransaction,
     getTransactions
-}
+};

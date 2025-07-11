@@ -4,6 +4,7 @@ const connectDB = require('./db')
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
 const transactionRoutes = require('./routes/transactionRoutes');
+const authRoutes = require("./routes/authRoutes");
 const dotenv = require('dotenv');
 
 const server = express();
@@ -16,8 +17,9 @@ server.post("/hello", (req, res) => {
     res.json({message: "Hello " + req.body.name});
 });
 
-server.use('/api/users', userRoutes);
-server.use('/api/transactions', transactionRoutes);
+server.use('/server/users', userRoutes);
+server.use('/server/transactions', transactionRoutes);
+server.use('/server/auth', authRoutes)
 
 server.listen(8000, () => {
     console.log("Server is active");
