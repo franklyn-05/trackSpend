@@ -17,9 +17,9 @@ server.post("/hello", (req, res) => {
     res.json({message: "Hello " + req.body.name});
 });
 
-server.use('/server/users', userRoutes);
-server.use('/server/transactions', transactionRoutes);
-server.use('/server/auth', authRoutes)
+server.use('api//users', userRoutes);
+server.use('api//transactions', transactionRoutes);
+server.use('/api/auth', authRoutes)
 
 server.listen(8000, () => {
     console.log("Server is active");
