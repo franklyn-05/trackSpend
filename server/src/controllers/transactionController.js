@@ -12,13 +12,13 @@ const createTransaction = async (req, res) => {
 
 const getTransaction = async (req, res) => {
     try{
-        const { id } = req.params;
-        const transaction = await Transaction.findById(id);
+        const { userId } = req.params;
+        const transaction = await Transaction.findById(userId);
 
-        if (!id) {
-            res.status(404).json({ error: 'Transaction not found'});
+        if (!userId) {
+            return res.status(404).json({ error: 'Transaction not found'});
         }
-        res.json(transaction);
+        return res.json(transaction);
     } catch (e){
         res.status(500).json({ error: 'Error occured'});
     }
@@ -27,9 +27,9 @@ const getTransaction = async (req, res) => {
 const getTransactions = async (req, res) => {
     const transactions = await Transaction.find();
     if (transactions){
-        res.json(transactions);
+        return res.json(transactions);
     } else {
-        res.status(404).json({ error: 'No transactions found'});
+        return res.status(404).json({ error: 'No transactions found'});
     }
 };
 

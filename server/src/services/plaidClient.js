@@ -1,9 +1,15 @@
-const plaid = require('plaid');
+const { Configuration, PlaidApi, PlaidEnvironments } = require('plaid');
 
-const client = new plaid.PlaidApi({
-    clientID: process.env.PLAID_CLIENT,
-    secret: process.env.PLAID_SECRET,
-    env: plaid.PlaidEnvironments[process.env.PLAID_ENV]
-})
+const config = new Configuration({
+    basePath: PlaidEnvironments[process.env.PLAID_ENV],
+    baseOptions: {
+        headers: {
+            'PLAID-CLIENT-ID': process.env.PLAID_CLIENT,
+            'PLAID-SECRET': process.env.PLAID_SECRET,
+        },
+    },
+});
+
+const client = new PlaidApi(config);
 
 module.exports = client;
