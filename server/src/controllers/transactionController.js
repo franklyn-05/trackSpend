@@ -25,7 +25,8 @@ const getTransaction = async (req, res) => {
 };
 
 const getTransactions = async (req, res) => {
-    const transactions = await Transaction.find();
+    const { userId } = req.user;
+    const transactions = await Transaction.find({ user: userId });
     if (transactions){
         return res.json(transactions);
     } else {

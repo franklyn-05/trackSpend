@@ -9,7 +9,7 @@ const {
 } = require('../controllers/transactionController');
 
 router.get('/', validateToken, getTransactions);
-router.get('/:userId', validateToken, getTransaction);
+router.get('/transaction', validateToken, getTransaction);
 router.put('/', validateToken, createTransaction);
 
 module.exports = router;

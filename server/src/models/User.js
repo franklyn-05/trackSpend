@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     sname: String,
     plaidToken: String,
     plaidItemId: String,
-    created: {type: Date, default: Date.now }
+    plaidCursor: String
 }, { timestamps: true});
 
 userSchema.pre('save', async function(next) {

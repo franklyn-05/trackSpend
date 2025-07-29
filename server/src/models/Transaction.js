@@ -4,10 +4,13 @@ const transactionSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'},
-    id: mongoose.Schema.Types.UUID,
+    trId: mongoose.Schema.Types.UUID,
     amount: Number,
     date: Date,
-    categories: [{type: 'String'}]
+    category: String,
+    currency: String,
+    name: String,
+    merchant: String
 });
 
 module.exports = mongoose.model('Transaction', transactionSchema);

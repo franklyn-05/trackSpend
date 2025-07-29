@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+@plugin "daisyui";
+
+:root {
+    --primary_color: #161616;
+    --secondary_color: #0c63be;
+    --text_color: #d9d9d9;
+}
+
+html {
+    background-color: var(--primary_color);
+    color: var(--text_color);
+    font-family: 'Raleway', sans-serif;
+}
+
+.nav-elt {
+    @apply hover:text-(--secondary_color) pt-0 text-2xl px-5;
+}
+
+.nav-logo {
+    @apply w-58 pl-3;
+}
+
+.main {
+    flex-grow: 1;
+}
+
+

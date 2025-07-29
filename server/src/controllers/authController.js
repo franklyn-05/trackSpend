@@ -25,7 +25,7 @@ const userLogin = async (req, res) => {
                 message: 'Login successful',
                 token: token,
                 user: {
-                    id: user.id,
+                    userId: user.id,
                     email: email
                 }
              });
@@ -46,7 +46,8 @@ const register = async (req, res) => {
 
 const profile = async (req, res) => {
     try{
-        const user = await User.findById(req.user.id).select("-password");
+        const { userId } = req.user;
+        const user = await User.findById(userId).select("-password");
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         } else {
