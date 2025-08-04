@@ -31,6 +31,16 @@ const loginRules = [
         .withMessage('Password required')
 ]
 
+const budgetRules = [
+    body('name')
+        .notEmpty()
+        .isLength({ max: 21})
+        .withMessage("Budget name cannot be more than 18 characters"),
+    body('category')
+        .notEmpty()
+        .withMessage("Must have a category")
+]
+
 const validateUser = (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -42,5 +52,6 @@ const validateUser = (req, res, next) => {
 module.exports = {
     registerRules,
     loginRules,
+    budgetRules,
     validateUser
 };

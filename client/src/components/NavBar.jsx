@@ -18,14 +18,17 @@ export default function NavBar() {
     return (
         <>
             <nav className="w-full">
-                <div className="navbar mb-5 bg-[#181818] shadow-sm">
+                <div className="navbar rounded-b-3xl mb-5 bg-[#0a0a0a] shadow-sm">
                     <div className="navbar-start">
                         <NavLink className="nav-logo" to="/"><img className="nav-logo" src="/logo.jpg"></img></NavLink>
                     </div>
                     <div className="navbar-center">
                         <NavLink className="nav-elt" to="/">Home</NavLink>
                         {token ? (
-                            <NavLink className="nav-elt" to="/transactions">Transactions</NavLink>
+                            <>
+                                <NavLink className="nav-elt" to="/transactions">Transactions</NavLink>
+                                <NavLink className="nav-elt" to="/budgets">Budgets</NavLink>
+                            </>
                         ) : (
                             <NavLink className="nav-elt" to="/about-us">About</NavLink>
                         )}

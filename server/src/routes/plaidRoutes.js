@@ -6,12 +6,14 @@ const {
     createLinkToken,
     exchangeToken,
     disconnectBank,
-    fetchTransactions
+    fetchTransactions,
+    getBankInfo
 } = require('../controllers/plaidController');
 
 router.post('/create-link-token', validateToken, createLinkToken);
 router.post('/exchange-token',validateToken, exchangeToken);
 router.get('/transactions', validateToken, fetchTransactions);
 router.get('/disconnect', validateToken, disconnectBank);
+router.get('/bank-info', validateToken, getBankInfo);
 
 module.exports = router;

@@ -13,6 +13,26 @@ export default function Profile() {
     const token = localStorage.getItem("token");
 
 
+    const getBankInfo = async() => {
+        try{
+            const bankInfo = await api.get('plaid/bank-info', {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            if (bankInfo.data.institutionName) {
+                setConnected(true);
+                setBank(bankInfo.data.institutionName);
+                setAccounts(bankInfo.data.accounts);
+            } else {
+                setConnected(false);
+                setBank(null);
+                setAccounts(null);
+            }
+        } catch (e) {
+            console.error("Error occured:", e);
+            setConnected(false);
+        }
+    }
+
     useEffect(() => {
         async function getProfile() {
             try {
@@ -29,6 +49,10 @@ export default function Profile() {
             }
         }
         getProfile();
+    }, []);
+
+    useEffect(() => {
+        getBankInfo();
     }, []);
 
 
@@ -48,18 +72,14 @@ export default function Profile() {
 
     const { open, ready } = usePlaidLink({
         token: linkToken,
-        onSuccess: async (public_token, metadata) => {
+        onSuccess: async (public_token) => {
             try {
-                const res = await api.post('/plaid/exchange-token', {
-                    public_token
-                }, {
+                await api.post('/plaid/exchange-token',
+                    { public_token }, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
-                console.log(res.data);
-                setConnected(true);
-                setBank(metadata.institution.name);
-                setAccounts(metadata.accounts)
-                console.log('Success', public_token, metadata);
+                await getBankInfo();
+                console.log('Success', public_token);
             } catch (e) {
                 console.log("Failed to exchange tokens: ", e)
             }
@@ -68,7 +88,7 @@ export default function Profile() {
 
     const disconnectBank = async () => {
         try{
-            const res = await api.get('/plaid/disconnect');
+            await api.get('/plaid/disconnect');
             setConnected(false);
             setBank(null);
             setAccounts(null);
@@ -89,11 +109,11 @@ export default function Profile() {
                 {connected ? (
                     <>
                         <p>Bank account connected - {bank}!</p>
-                        {accounts && accounts.map(acc => (
+                        {accounts && accounts.map(acc =>
                             <p key={acc.id}>
                                 {acc.name} | ****{acc.mask}
                             </p>
-                        ))}
+                        )}
                         <button onClick={disconnectBank} className="btn border border-(--text_color) bg-(--primary_color) hover:bg-(--secondary_color) hover:border-(--primary_color) hover:text-(--primary_color) p-6 m-3">
                             Disconnect bank account
                         </button>

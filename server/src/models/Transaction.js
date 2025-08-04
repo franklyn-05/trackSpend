@@ -1,13 +1,17 @@
 const mongoose = require('mongoose');
 
 const transactionSchema = new mongoose.Schema({
+    trId: {type: String, unique: true},
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'},
-    trId: mongoose.Schema.Types.UUID,
+    accountId: String,
     amount: Number,
     date: Date,
-    category: String,
+    category: {
+        primary: String,
+        detailed: String
+    },
     currency: String,
     name: String,
     merchant: String

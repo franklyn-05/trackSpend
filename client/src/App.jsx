@@ -10,6 +10,8 @@ import Login from './pages/Login';
 import Register from "./pages/Register";
 import Footer from './components/Footer';
 import Transactions from './pages/Transactions';
+import Contact from './pages/Contact';
+import Budgets from './pages/Budgets';
 
 axios.defaults.baseURL = "http://localhost:8000"
 
@@ -28,10 +30,12 @@ function App() {
               <Route index element={<Home />} />
               <Route path="profile" element={<Profile />} />
               <Route path='transactions' element={<Transactions />} />
+              <Route path='budgets' element={<Budgets />} />
               <Route path='about-us' element={<AboutUs />} />
               <Route path='login' element={<Login />} />
               <Route path='register' element={<Register />} />
               <Route path='*' element={<NoPage />} />
+              <Route path='contact' element={<Contact />}/>
             </Route>
           </Routes>
         </BrowserRouter>

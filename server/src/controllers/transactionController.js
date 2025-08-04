@@ -26,9 +26,25 @@ const getTransaction = async (req, res) => {
 
 const getTransactions = async (req, res) => {
     const { userId } = req.user;
-    const transactions = await Transaction.find({ user: userId });
+    const pageNum = parseInt(req.query.page) || 1;
+    const  limit = parseInt(req.query.limit) || 20;
+    const skip = (pageNum - 1) * limit
+
+    const total = await Transaction.countDocuments({ user: userId });
+    const transactions = await Transaction.find({ user: userId })
+        .sort({ date: -1 })
+        .skip(skip)
+        .limit(limit);
+
+
     if (transactions){
-        return res.json(transactions);
+        return res.json({
+            transactions,
+            page: pageNum,
+            pages: Math.ceil(total / limit),
+            total: total
+
+        });
     } else {
         return res.status(404).json({ error: 'No transactions found'});
     }
