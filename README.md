@@ -1,6 +1,6 @@
 ## TrackSpend
 
-TrackSpend is an personal finance and budget tracker app that will allow you to:
+TrackSpend is a personal finance and budget tracker app that will allow you to:
 - Connect to your bank account to see real time transaction history
 - Track your spending habits
 - Set budgets for spending, either weekly/bi-weekly/montthly or by a custom user entered time period
